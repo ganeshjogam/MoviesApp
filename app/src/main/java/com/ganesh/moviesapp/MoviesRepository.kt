@@ -1,6 +1,7 @@
 package com.ganesh.moviesapp
 
-import android.util.Log
+import com.ganesh.moviesapp.data.entity.MoviesResponseEntity
+import com.ganesh.moviesapp.data.entity.MovieEntity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,14 +23,14 @@ object MoviesRepository {
 
     fun getPopularMovies(
         page: Int = 1,
-        onSuccess: (movies: List<Movie>) -> Unit,
+        onSuccess: (movies: List<MovieEntity>) -> Unit,
         onError: () -> Unit
     ) {
         api.getPopularMovies(page = page)
-            .enqueue(object : Callback<GetMoviesResponse> {
+            .enqueue(object : Callback<MoviesResponseEntity> {
                 override fun onResponse(
-                    call: Call<GetMoviesResponse>,
-                    response: Response<GetMoviesResponse>
+                    call: Call<MoviesResponseEntity>,
+                    response: Response<MoviesResponseEntity>
                 ) {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
@@ -44,7 +45,7 @@ object MoviesRepository {
                     }
                 }
 
-                override fun onFailure(call: Call<GetMoviesResponse>, t: Throwable) {
+                override fun onFailure(call: Call<MoviesResponseEntity>, t: Throwable) {
                     onError.invoke()
                 }
             })
@@ -52,14 +53,14 @@ object MoviesRepository {
 
     fun getTopRatedMovies(
         page: Int = 1,
-        onSuccess: (movies: List<Movie>) -> Unit,
+        onSuccess: (movies: List<MovieEntity>) -> Unit,
         onError: () -> Unit
     ) {
         api.getTopRatedMovies(page = page)
-            .enqueue(object : Callback<GetMoviesResponse> {
+            .enqueue(object : Callback<MoviesResponseEntity> {
                 override fun onResponse(
-                    call: Call<GetMoviesResponse>,
-                    response: Response<GetMoviesResponse>
+                    call: Call<MoviesResponseEntity>,
+                    response: Response<MoviesResponseEntity>
                 ) {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
@@ -74,7 +75,7 @@ object MoviesRepository {
                     }
                 }
 
-                override fun onFailure(call: Call<GetMoviesResponse>, t: Throwable) {
+                override fun onFailure(call: Call<MoviesResponseEntity>, t: Throwable) {
                     onError.invoke()
                 }
             })
@@ -82,14 +83,14 @@ object MoviesRepository {
 
     fun getUpcomingMovies(
         page: Int = 1,
-        onSuccess: (movies: List<Movie>) -> Unit,
+        onSuccess: (movies: List<MovieEntity>) -> Unit,
         onError: () -> Unit
     ) {
         api.getUpcomingMovies(page = page)
-            .enqueue(object : Callback<GetMoviesResponse> {
+            .enqueue(object : Callback<MoviesResponseEntity> {
                 override fun onResponse(
-                    call: Call<GetMoviesResponse>,
-                    response: Response<GetMoviesResponse>
+                    call: Call<MoviesResponseEntity>,
+                    response: Response<MoviesResponseEntity>
                 ) {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
@@ -104,7 +105,7 @@ object MoviesRepository {
                     }
                 }
 
-                override fun onFailure(call: Call<GetMoviesResponse>, t: Throwable) {
+                override fun onFailure(call: Call<MoviesResponseEntity>, t: Throwable) {
                     onError.invoke()
                 }
             })

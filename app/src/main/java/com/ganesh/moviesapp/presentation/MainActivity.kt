@@ -1,14 +1,30 @@
-package com.ganesh.moviesapp
+package com.ganesh.moviesapp.presentation
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ganesh.moviesapp.*
+import com.ganesh.moviesapp.data.entity.MovieEntity
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
+import javax.inject.Inject
 
 // https://www.arthlimchiu.com/2019/10/02/make-a-movies-app-part-1.html
-class MainActivity : AppCompatActivity() {
+/*
+we need to update the LobbyActivity to support injecting fragments by implementing
+HasSupportFragmentInjector. Note, if our activity did not contain any fragments or
+the fragments did not need to inject anything, the activity would not need to implement HasSupportFragmentInjector.
+
+* */
+class MainActivity : AppCompatActivity(), HasAndroidInjector {
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
     private lateinit var popularMovies: RecyclerView
     private lateinit var popularMoviesAdapter: MoviesAdapter
     private lateinit var popularMoviesLayoutMgr: LinearLayoutManager
@@ -24,9 +40,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var upcomingMoviesLayoutMgr: LinearLayoutManager
     private var upcomingMoviesPage = 1
 
+    @Inject
+    lateinit var injectedContext: Context
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        print("Rahul $injectedContext")
 
         popularMovies = findViewById(R.id.popular_movies)
         popularMoviesLayoutMgr = LinearLayoutManager(
@@ -69,7 +90,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun showMovieDetails(movie: Movie) {
+    private fun showMovieDetails(movie: MovieEntity) {
         val intent = Intent(this, MovieDetailsActivity::class.java)
         intent.putExtra(MOVIE_BACKDROP, movie.backdropPath)
         intent.putExtra(MOVIE_POSTER, movie.posterPath)
@@ -120,7 +141,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun onPopularMoviesFetched(movies: List<Movie>) {
+    private fun onPopularMoviesFetched(movies: List<MovieEntity>) {
         popularMoviesAdapter.appendMovies(movies)
         attachPopularMoviesOnScrollListener()
     }
@@ -145,7 +166,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun onTopRatedMoviesFetched(movies: List<Movie>) {
+    private fun onTopRatedMoviesFetched(movies: List<MovieEntity>) {
         topRatedMoviesAdapter.appendMovies(movies)
         attachTopRatedMoviesOnScrollListener()
     }
@@ -166,9 +187,13 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun onUpcomingMoviesFetched(movies: List<Movie>) {
+    private fun onUpcomingMoviesFetched(movies: List<MovieEntity>) {
         upcomingMoviesAdapter.appendMovies(movies)
         attachUpcomingMoviesOnScrollListener()
+    }
+
+    override fun androidInjector(): AndroidInjector<Any> {
+        return dispatchingAndroidInjector
     }
 
 }

@@ -1,8 +1,8 @@
-package com.ganesh.moviesapp
+package com.ganesh.moviesapp.data.entity
 
 import com.google.gson.annotations.SerializedName
 
-data class Movie(
+data class MovieEntity(
     @SerializedName("id") val id: Long,
     @SerializedName("title") val title: String,
     @SerializedName("overview") val overview: String,
