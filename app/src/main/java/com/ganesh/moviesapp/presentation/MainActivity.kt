@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ganesh.moviesapp.*
@@ -43,10 +44,17 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
     @Inject
     lateinit var injectedContext: Context
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    lateinit var mainViewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        mainViewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
         print("Rahul $injectedContext")
 
         popularMovies = findViewById(R.id.popular_movies)
@@ -79,14 +87,22 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         upcomingMoviesAdapter = MoviesAdapter(mutableListOf()) { movie -> showMovieDetails(movie) }
         upcomingMovies.adapter = upcomingMoviesAdapter
 
-        getPopularMovies()
-        getTopRatedMovies()
-        getUpcomingMovies()
+        mainViewModel.init()
 
-        MoviesRepository.getPopularMovies(
-            onSuccess = ::onPopularMoviesFetched,
-            onError = ::onError
-        )
+        mainViewModel.popularMovies.observe(this) {
+            movies -> popularMoviesAdapter.appendMovies(movies)
+            attachPopularMoviesOnScrollListener()
+        }
+
+        mainViewModel.upcomingMovies.observe(this) {
+            movies -> upcomingMoviesAdapter.appendMovies(movies)
+            attachUpcomingMoviesOnScrollListener()
+        }
+
+        mainViewModel.topRatedMovies.observe(this){
+            movies -> topRatedMoviesAdapter.appendMovies(movies)
+            attachTopRatedMoviesOnScrollListener()
+        }
 
     }
 
@@ -101,30 +117,6 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         startActivity(intent)
     }
 
-    private fun getPopularMovies() {
-        MoviesRepository.getPopularMovies(
-            popularMoviesPage,
-            ::onPopularMoviesFetched,
-            ::onError
-        )
-    }
-
-    private fun getTopRatedMovies() {
-        MoviesRepository.getTopRatedMovies(
-            topRatedMoviesPage,
-            ::onTopRatedMoviesFetched,
-            ::onError
-        )
-    }
-
-    private fun getUpcomingMovies() {
-        MoviesRepository.getUpcomingMovies(
-            upcomingMoviesPage,
-            ::onUpcomingMoviesFetched,
-            ::onError
-        )
-    }
-
     private fun attachPopularMoviesOnScrollListener() {
         popularMovies.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -135,19 +127,10 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
                 if (firstVisibleItem + visibleItemCount >= totalItemCount / 2) {
                     popularMovies.removeOnScrollListener(this)
                     popularMoviesPage++
-                    getPopularMovies()
+                    mainViewModel.getPopularMovies(popularMoviesPage)
                 }
             }
         })
-    }
-
-    private fun onPopularMoviesFetched(movies: List<MovieEntity>) {
-        popularMoviesAdapter.appendMovies(movies)
-        attachPopularMoviesOnScrollListener()
-    }
-
-    private fun onError() {
-        Toast.makeText(this, getString(R.string.error_fetch_movies), Toast.LENGTH_SHORT).show()
     }
 
     private fun attachTopRatedMoviesOnScrollListener() {
@@ -160,15 +143,10 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
                 if (firstVisibleItem + visibleItemCount >= totalItemCount / 2) {
                     topRatedMovies.removeOnScrollListener(this)
                     topRatedMoviesPage++
-                    getTopRatedMovies()
+                    mainViewModel.getTopRatedMovies(topRatedMoviesPage)
                 }
             }
         })
-    }
-
-    private fun onTopRatedMoviesFetched(movies: List<MovieEntity>) {
-        topRatedMoviesAdapter.appendMovies(movies)
-        attachTopRatedMoviesOnScrollListener()
     }
 
     private fun attachUpcomingMoviesOnScrollListener() {
@@ -181,16 +159,12 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
                 if (firstVisibleItem + visibleItemCount >= totalItemCount / 2) {
                     upcomingMovies.removeOnScrollListener(this)
                     upcomingMoviesPage++
-                    getUpcomingMovies()
+                    mainViewModel.getUpcomingMovies(upcomingMoviesPage)
                 }
             }
         })
     }
 
-    private fun onUpcomingMoviesFetched(movies: List<MovieEntity>) {
-        upcomingMoviesAdapter.appendMovies(movies)
-        attachUpcomingMoviesOnScrollListener()
-    }
 
     override fun androidInjector(): AndroidInjector<Any> {
         return dispatchingAndroidInjector

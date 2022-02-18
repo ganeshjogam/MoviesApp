@@ -6,13 +6,16 @@ import com.ganesh.moviesapp.di.presentation.BuildersModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
+import dagger.android.support.AndroidSupportInjectionModule
+import javax.inject.Singleton
 
-
+@Singleton
 @Component(
     modules = [
         AndroidInjectionModule::class,
         AppModule::class,
-        BuildersModule::class
+        ViewModelModule::class,
+        AppActivityBindingModule::class
     ]
 )
 interface AppComponent {
@@ -20,7 +23,7 @@ interface AppComponent {
     interface Builder {
         @BindsInstance
         fun application(application: Application): Builder
-        fun build(): AppComponent?
+        fun build(): AppComponent
     }
 
     fun inject(app: App)

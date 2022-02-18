@@ -10,7 +10,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.ganesh.moviesapp.data.entity.MovieEntity
 
 class MoviesAdapter(
-    private var movies: MutableList<MovieEntity>,
+    private var movies: List<MovieEntity>,
     private val onMovieClick: (movie: MovieEntity) -> Unit
 ) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
@@ -28,7 +28,7 @@ class MoviesAdapter(
     }
 
     fun appendMovies(movies: List<MovieEntity>) {
-        this.movies.addAll(movies)
+        this.movies = movies
         notifyItemRangeInserted(
             this.movies.size,
             movies.size - 1
