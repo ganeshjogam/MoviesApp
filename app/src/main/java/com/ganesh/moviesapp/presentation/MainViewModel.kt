@@ -2,11 +2,15 @@ package com.ganesh.moviesapp.presentation
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ganesh.moviesapp.MoviesRepository
 import com.ganesh.moviesapp.data.entity.MovieEntity
-import javax.inject.Inject
+import com.ganesh.moviesapp.domain.repository.MovieRepository
+import com.ganesh.moviesapp.domain.usecase.*
 
-class MainViewModel @Inject constructor(): ViewModel() {
+class MainViewModel constructor(
+    private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
+    private val getTopRatedMoviesUseCase: GetTopRatedMoviesUseCase,
+    private val getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase
+): ViewModel() {
     val popularMovies: MutableLiveData<MutableList<MovieEntity>> = MutableLiveData(mutableListOf())
     val upcomingMovies: MutableLiveData<MutableList<MovieEntity>> = MutableLiveData(mutableListOf())
     val topRatedMovies: MutableLiveData<MutableList<MovieEntity>> = MutableLiveData(mutableListOf())
@@ -17,27 +21,33 @@ class MainViewModel @Inject constructor(): ViewModel() {
         getUpcomingMovies(1)
     }
 
-    public fun getPopularMovies(page: Int) {
-        MoviesRepository.getPopularMovies(
-            page,
-            ::onPopularMoviesFetched,
-            ::onError
+    fun getPopularMovies(page: Int) {
+        getPopularMoviesUseCase(
+            params = PopularMoviesRequest(
+                page = page,
+                onSuccess = ::onPopularMoviesFetched,
+                onError = ::onError
+            )
         )
     }
 
-    public fun getTopRatedMovies(page: Int) {
-        MoviesRepository.getTopRatedMovies(
-            page,
-            ::onTopRatedMoviesFetched,
-            ::onError
+    fun getTopRatedMovies(page: Int) {
+        getTopRatedMoviesUseCase(
+            params = TopRatedMoviesRequest(
+                page = page,
+                onSuccess = ::onTopRatedMoviesFetched,
+                onError = ::onError
+            )
         )
     }
 
-    public fun getUpcomingMovies(page: Int) {
-        MoviesRepository.getUpcomingMovies(
-            page,
-            ::onUpcomingMoviesFetched,
-            ::onError
+    fun getUpcomingMovies(page: Int) {
+        getUpcomingMoviesUseCase(
+            params = UpcomingMoviesRequest(
+                page = page,
+                onSuccess = ::onUpcomingMoviesFetched,
+                onError = ::onError
+            )
         )
     }
 

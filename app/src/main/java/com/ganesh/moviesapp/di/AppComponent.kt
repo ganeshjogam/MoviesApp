@@ -2,11 +2,9 @@ package com.ganesh.moviesapp.di
 
 import android.app.Application
 import com.ganesh.moviesapp.App
-import com.ganesh.moviesapp.di.presentation.BuildersModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
-import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Singleton
@@ -14,8 +12,8 @@ import javax.inject.Singleton
     modules = [
         AndroidInjectionModule::class,
         AppModule::class,
-        ViewModelModule::class,
-        AppActivityBindingModule::class
+        AppActivityBindingModule::class,
+        NetworkModule::class
     ]
 )
 interface AppComponent {

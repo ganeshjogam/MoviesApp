@@ -1,10 +1,11 @@
 package com.ganesh.moviesapp.di
 
-import com.ganesh.moviesapp.Api
+import com.ganesh.moviesapp.data.sources.remote.api.Api
 import com.ganesh.moviesapp.App
 import com.ganesh.moviesapp.BuildConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.localebro.okhttpprofiler.OkHttpProfilerInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -28,6 +29,7 @@ class NetworkModule {
             )
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             okHttpBuilder.addInterceptor(loggingInterceptor)
+            okHttpBuilder.addInterceptor(OkHttpProfilerInterceptor())
         }
         okHttpBuilder.readTimeout(60, TimeUnit.SECONDS)
         okHttpBuilder.connectTimeout(60, TimeUnit.SECONDS)
@@ -48,6 +50,7 @@ class NetworkModule {
             .build()
     }
 
+    @Provides
     fun provideGson(): Gson {
         return GsonBuilder().create()
     }

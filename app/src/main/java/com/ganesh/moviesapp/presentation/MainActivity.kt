@@ -3,9 +3,7 @@ package com.ganesh.moviesapp.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ganesh.moviesapp.*
@@ -45,8 +43,6 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
     lateinit var injectedContext: Context
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
     lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +50,6 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mainViewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
         print("Rahul $injectedContext")
 
         popularMovies = findViewById(R.id.popular_movies)

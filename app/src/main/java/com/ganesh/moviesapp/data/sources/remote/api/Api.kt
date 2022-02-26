@@ -1,5 +1,6 @@
-package com.ganesh.moviesapp
+package com.ganesh.moviesapp.data.sources.remote.api
 
+import com.ganesh.moviesapp.BuildConfig
 import com.ganesh.moviesapp.data.entity.MoviesResponseEntity
 import retrofit2.Call
 import retrofit2.http.GET
