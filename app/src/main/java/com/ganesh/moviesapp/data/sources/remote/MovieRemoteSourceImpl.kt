@@ -10,7 +10,7 @@ import retrofit2.Response
 class MovieRemoteSourceImpl(val api: Api) : MovieRemoteSource {
     override fun getPopularMovies(
         page: Int,
-        onSuccess: (movies: List<MovieEntity>) -> Unit,
+        onSuccess: (movieResponse: MoviesResponseEntity) -> Unit,
         onError: () -> Unit
     ) {
         api.getPopularMovies(page = page)
@@ -23,7 +23,7 @@ class MovieRemoteSourceImpl(val api: Api) : MovieRemoteSource {
                         val responseBody = response.body()
 
                         if (responseBody != null) {
-                            onSuccess.invoke(responseBody.movies)
+                            onSuccess.invoke(responseBody)
                         } else {
                             onError.invoke()
                         }
@@ -40,7 +40,7 @@ class MovieRemoteSourceImpl(val api: Api) : MovieRemoteSource {
 
     override fun getTopRatedMovies(
         page: Int,
-        onSuccess: (movies: List<MovieEntity>) -> Unit,
+        onSuccess: (movieResponse: MoviesResponseEntity) -> Unit,
         onError: () -> Unit
     ) {
         api.getTopRatedMovies(page = page)
@@ -53,7 +53,7 @@ class MovieRemoteSourceImpl(val api: Api) : MovieRemoteSource {
                         val responseBody = response.body()
 
                         if (responseBody != null) {
-                            onSuccess.invoke(responseBody.movies)
+                            onSuccess.invoke(responseBody)
                         } else {
                             onError.invoke()
                         }
@@ -70,7 +70,7 @@ class MovieRemoteSourceImpl(val api: Api) : MovieRemoteSource {
 
     override fun getUpcomingMovies(
         page: Int,
-        onSuccess: (movies: List<MovieEntity>) -> Unit,
+        onSuccess: (movieResponse: MoviesResponseEntity) -> Unit,
         onError: () -> Unit
     ) {
         api.getUpcomingMovies(page = page)
@@ -83,7 +83,7 @@ class MovieRemoteSourceImpl(val api: Api) : MovieRemoteSource {
                         val responseBody = response.body()
 
                         if (responseBody != null) {
-                            onSuccess.invoke(responseBody.movies)
+                            onSuccess.invoke(responseBody)
                         } else {
                             onError.invoke()
                         }

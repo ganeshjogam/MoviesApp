@@ -7,11 +7,11 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.ganesh.moviesapp.data.entity.MovieEntity
+import com.ganesh.moviesapp.presentation.MovieViewData
 
 class MoviesAdapter(
-    private var movies: List<MovieEntity>,
-    private val onMovieClick: (movie: MovieEntity) -> Unit
+    private var movies: List<MovieViewData>,
+    private val onMovieClick: (movie: MovieViewData) -> Unit
 ) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -27,7 +27,7 @@ class MoviesAdapter(
         holder.bind(movies[position])
     }
 
-    fun appendMovies(movies: List<MovieEntity>) {
+    fun appendMovies(movies: List<MovieViewData>) {
         this.movies = movies
         notifyItemRangeInserted(
             this.movies.size,
@@ -39,7 +39,7 @@ class MoviesAdapter(
 
         private val poster: ImageView = itemView.findViewById(R.id.item_movie_poster)
 
-        fun bind(movie: MovieEntity) {
+        fun bind(movie: MovieViewData) {
             Glide.with(itemView)
                 .load("https://image.tmdb.org/t/p/w342${movie.posterPath}")
                 .transform(CenterCrop())

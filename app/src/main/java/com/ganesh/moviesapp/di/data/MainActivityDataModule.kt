@@ -1,5 +1,7 @@
 package com.ganesh.moviesapp.di.data
 
+import com.ganesh.moviesapp.data.mapper.MovieResponseMapper
+import com.ganesh.moviesapp.data.mapper.MovieResponseMapperImpl
 import com.ganesh.moviesapp.data.sources.remote.api.Api
 import com.ganesh.moviesapp.data.repository.MoviesRepositoryImpl
 import com.ganesh.moviesapp.data.sources.local.MovieLocalSource
@@ -15,13 +17,17 @@ class MainActivityDataModule {
     @Provides
     fun provideMovieRepository(
         localSource: MovieLocalSource,
-        remoteSource: MovieRemoteSource
+        remoteSource: MovieRemoteSource,
+        mapper: MovieResponseMapper
     )
-    : MovieRepository = MoviesRepositoryImpl(localSource, remoteSource)
+    : MovieRepository = MoviesRepositoryImpl(localSource, remoteSource, mapper)
 
     @Provides
     fun provideMovieLocalSource(): MovieLocalSource = MovieLocalSourceImpl()
 
     @Provides
     fun provideMovieRemoteSource(api: Api): MovieRemoteSource = MovieRemoteSourceImpl(api)
+
+    @Provides
+    fun provideMovieResponseMapper() : MovieResponseMapper = MovieResponseMapperImpl()
 }

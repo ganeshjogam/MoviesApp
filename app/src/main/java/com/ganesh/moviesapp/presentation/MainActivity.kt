@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ganesh.moviesapp.*
-import com.ganesh.moviesapp.data.entity.MovieEntity
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -101,7 +100,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
     }
 
-    private fun showMovieDetails(movie: MovieEntity) {
+    private fun showMovieDetails(movie: MovieViewData) {
         val intent = Intent(this, MovieDetailsActivity::class.java)
         intent.putExtra(MOVIE_BACKDROP, movie.backdropPath)
         intent.putExtra(MOVIE_POSTER, movie.posterPath)
