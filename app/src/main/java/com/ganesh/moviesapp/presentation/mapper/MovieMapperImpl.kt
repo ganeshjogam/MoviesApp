@@ -1,12 +1,12 @@
 package com.ganesh.moviesapp.presentation.mapper
 
 import com.ganesh.moviesapp.domain.model.MovieModel
-import com.ganesh.moviesapp.presentation.MovieViewData
+import com.ganesh.moviesapp.presentation.MovieItemViewData
 
 class MovieMapperImpl : MovieMapper {
-    override fun toViewData(movies: List<MovieModel>): List<MovieViewData> =
+    override fun toViewData(movies: List<MovieModel>): List<MovieItemViewData> =
         movies.map {
-            MovieViewData(
+            MovieItemViewData(
                 id = it.id,
                 title = it.title,
                 overview = it.overview,

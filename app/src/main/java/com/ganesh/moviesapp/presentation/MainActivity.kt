@@ -100,14 +100,14 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
     }
 
-    private fun showMovieDetails(movie: MovieViewData) {
+    private fun showMovieDetails(movieItem: MovieItemViewData) {
         val intent = Intent(this, MovieDetailsActivity::class.java)
-        intent.putExtra(MOVIE_BACKDROP, movie.backdropPath)
-        intent.putExtra(MOVIE_POSTER, movie.posterPath)
-        intent.putExtra(MOVIE_TITLE, movie.title)
-        intent.putExtra(MOVIE_RATING, movie.rating)
-        intent.putExtra(MOVIE_RELEASE_DATE, movie.releaseDate)
-        intent.putExtra(MOVIE_OVERVIEW, movie.overview)
+        intent.putExtra(MOVIE_BACKDROP, movieItem.backdropPath)
+        intent.putExtra(MOVIE_POSTER, movieItem.posterPath)
+        intent.putExtra(MOVIE_TITLE, movieItem.title)
+        intent.putExtra(MOVIE_RATING, movieItem.rating)
+        intent.putExtra(MOVIE_RELEASE_DATE, movieItem.releaseDate)
+        intent.putExtra(MOVIE_OVERVIEW, movieItem.overview)
         startActivity(intent)
     }
 

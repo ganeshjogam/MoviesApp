@@ -1,6 +1,7 @@
 package com.ganesh.moviesapp.data.repository
 
-import com.ganesh.moviesapp.data.entity.MovieEntity
+import com.ganesh.moviesapp.core.BaseFailure
+import com.ganesh.moviesapp.core.BaseResult
 import com.ganesh.moviesapp.data.mapper.MovieResponseMapper
 import com.ganesh.moviesapp.data.sources.local.MovieLocalSource
 import com.ganesh.moviesapp.data.sources.remote.MovieRemoteSource
@@ -12,14 +13,16 @@ class MoviesRepositoryImpl(
     private val remoteSource: MovieRemoteSource,
     private val mapper: MovieResponseMapper
 ) : MovieRepository {
-    override fun getPopularMovies(
-        page: Int,
-        onSuccess: (movies: List<MovieModel>) -> Unit,
-        onError: () -> Unit
-    ) {
-        remoteSource.getPopularMovies(page,
-            { movieResponse -> onSuccess(mapper.toMovieListModel(movieResponse)) },
-            { onError() })
+    override suspend fun getPopularMovies(
+        page: Int
+    ): BaseResult<BaseFailure, List<MovieModel>> {
+        val response = remoteSource.getPopularMovies(page)
+        if (response.isSuccess) {
+            val result = (response as BaseResult.Success).success
+            return BaseResult.Success(mapper.toMovieListModel(result))
+        }
+
+        return response as BaseResult.Error
     }
 
     override fun getTopRatedMovies(

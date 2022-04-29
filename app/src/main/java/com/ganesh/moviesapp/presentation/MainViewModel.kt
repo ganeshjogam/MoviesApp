@@ -2,19 +2,24 @@ package com.ganesh.moviesapp.presentation
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ganesh.moviesapp.core.BaseFailure
+import com.ganesh.moviesapp.core.BaseViewModel
+import com.ganesh.moviesapp.core.Scope
 import com.ganesh.moviesapp.domain.model.MovieModel
 import com.ganesh.moviesapp.domain.usecase.*
 import com.ganesh.moviesapp.presentation.mapper.MovieMapper
 
 class MainViewModel constructor(
+    scope: Scope,
+    data: MovieViewData,
     private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
     private val getTopRatedMoviesUseCase: GetTopRatedMoviesUseCase,
     private val getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase,
     private val mapper: MovieMapper
-): ViewModel() {
-    val popularMovies: MutableLiveData<MutableList<MovieViewData>> = MutableLiveData(mutableListOf())
-    val upcomingMovies: MutableLiveData<MutableList<MovieViewData>> = MutableLiveData(mutableListOf())
-    val topRatedMovies: MutableLiveData<MutableList<MovieViewData>> = MutableLiveData(mutableListOf())
+): BaseViewModel<MovieViewData>(scope, data) {
+    val popularMovies: MutableLiveData<MutableList<MovieItemViewData>> = MutableLiveData(mutableListOf())
+    val upcomingMovies: MutableLiveData<MutableList<MovieItemViewData>> = MutableLiveData(mutableListOf())
+    val topRatedMovies: MutableLiveData<MutableList<MovieItemViewData>> = MutableLiveData(mutableListOf())
 
     fun init() {
         getPopularMovies(1)
@@ -23,13 +28,17 @@ class MainViewModel constructor(
     }
 
     fun getPopularMovies(page: Int) {
-        getPopularMoviesUseCase(
-            params = PopularMoviesRequest(
-                page = page,
-                onSuccess = ::onPopularMoviesFetched,
-                onError = ::onError
+        execute {
+            data.loading()
+            getPopularMoviesUseCase(
+                params = PopularMoviesRequest(
+                    page = page
+                )
+            ).fold(
+                ::handlePopularMovieError,
+                ::onPopularMoviesFetched
             )
-        )
+        }
     }
 
     fun getTopRatedMovies(page: Int) {
@@ -68,6 +77,10 @@ class MainViewModel constructor(
         val totalList = upcomingMovies.value ?: mutableListOf()
         totalList.addAll(mapper.toViewData(movies))
         upcomingMovies.postValue(totalList)
+    }
+
+    private fun handlePopularMovieError(failure: BaseFailure) {
+        data.error()
     }
 
     private fun onError() {

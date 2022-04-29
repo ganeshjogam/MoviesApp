@@ -7,11 +7,11 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.ganesh.moviesapp.presentation.MovieViewData
+import com.ganesh.moviesapp.presentation.MovieItemViewData
 
 class MoviesAdapter(
-    private var movies: List<MovieViewData>,
-    private val onMovieClick: (movie: MovieViewData) -> Unit
+    private var movieItems: List<MovieItemViewData>,
+    private val onMovieClick: (movieItem: MovieItemViewData) -> Unit
 ) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -21,17 +21,17 @@ class MoviesAdapter(
         return MovieViewHolder(view)
     }
 
-    override fun getItemCount(): Int = movies.size
+    override fun getItemCount(): Int = movieItems.size
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(movies[position])
+        holder.bind(movieItems[position])
     }
 
-    fun appendMovies(movies: List<MovieViewData>) {
-        this.movies = movies
+    fun appendMovies(movieItems: List<MovieItemViewData>) {
+        this.movieItems = movieItems
         notifyItemRangeInserted(
-            this.movies.size,
-            movies.size - 1
+            this.movieItems.size,
+            movieItems.size - 1
         )
     }
 
@@ -39,13 +39,13 @@ class MoviesAdapter(
 
         private val poster: ImageView = itemView.findViewById(R.id.item_movie_poster)
 
-        fun bind(movie: MovieViewData) {
+        fun bind(movieItem: MovieItemViewData) {
             Glide.with(itemView)
-                .load("https://image.tmdb.org/t/p/w342${movie.posterPath}")
+                .load("https://image.tmdb.org/t/p/w342${movieItem.posterPath}")
                 .transform(CenterCrop())
                 .into(poster)
 
-            itemView.setOnClickListener { onMovieClick.invoke(movie) }
+            itemView.setOnClickListener { onMovieClick.invoke(movieItem) }
         }
     }
 }
