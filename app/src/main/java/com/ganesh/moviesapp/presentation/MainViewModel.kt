@@ -17,9 +17,6 @@ class MainViewModel constructor(
     private val getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase,
     private val mapper: MovieMapper
 ): BaseViewModel<MovieViewData>(scope, data) {
-    val popularMovies: MutableLiveData<MutableList<MovieItemViewData>> = MutableLiveData(mutableListOf())
-    val upcomingMovies: MutableLiveData<MutableList<MovieItemViewData>> = MutableLiveData(mutableListOf())
-    val topRatedMovies: MutableLiveData<MutableList<MovieItemViewData>> = MutableLiveData(mutableListOf())
 
     fun init() {
         getPopularMovies(1)
@@ -62,21 +59,21 @@ class MainViewModel constructor(
     }
 
     private fun onPopularMoviesFetched(movies: List<MovieModel>) {
-        val totalList = popularMovies.value ?: mutableListOf()
+        val totalList = data.popularMovies.value?.toMutableList() ?: mutableListOf()
         totalList.addAll(mapper.toViewData(movies))
-        popularMovies.postValue(totalList)
+        data.popularMovies.postValue(totalList)
     }
 
     private fun onTopRatedMoviesFetched(movies: List<MovieModel>) {
-        val totalList = topRatedMovies.value ?: mutableListOf()
+        val totalList = data.topRatedMovies.value?.toMutableList() ?: mutableListOf()
         totalList.addAll(mapper.toViewData(movies))
-        topRatedMovies.postValue(totalList)
+        data.topRatedMovies.postValue(totalList)
     }
 
     private fun onUpcomingMoviesFetched(movies: List<MovieModel>) {
-        val totalList = upcomingMovies.value ?: mutableListOf()
+        val totalList = data.upcomingMovies.value?.toMutableList() ?: mutableListOf()
         totalList.addAll(mapper.toViewData(movies))
-        upcomingMovies.postValue(totalList)
+        data.upcomingMovies.postValue(totalList)
     }
 
     private fun handlePopularMovieError(failure: BaseFailure) {

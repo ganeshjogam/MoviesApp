@@ -83,17 +83,17 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
         mainViewModel.init()
 
-        mainViewModel.popularMovies.observe(this) {
+        mainViewModel.data.popularMovies.observe(this) {
             movies -> popularMoviesAdapter.appendMovies(movies)
             attachPopularMoviesOnScrollListener()
         }
 
-        mainViewModel.upcomingMovies.observe(this) {
+        mainViewModel.data.upcomingMovies.observe(this) {
             movies -> upcomingMoviesAdapter.appendMovies(movies)
             attachUpcomingMoviesOnScrollListener()
         }
 
-        mainViewModel.topRatedMovies.observe(this){
+        mainViewModel.data.topRatedMovies.observe(this){
             movies -> topRatedMoviesAdapter.appendMovies(movies)
             attachTopRatedMoviesOnScrollListener()
         }
