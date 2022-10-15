@@ -13,16 +13,8 @@ import dagger.Provides
 @Module
 class MainActivityPresentationModule {
     @Provides
-    fun provideMainViewModel(
-        getPopularMoviesUseCase: GetPopularMoviesUseCase,
-        getTopRatedMoviesUseCase: GetTopRatedMoviesUseCase,
-        getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase
-    ): MainViewModel =
+    fun provideMainViewModel(): MainViewModel =
         MainViewModel(
-            getPopularMoviesUseCase = getPopularMoviesUseCase,
-            getTopRatedMoviesUseCase = getTopRatedMoviesUseCase,
-            getUpcomingMoviesUseCase = getUpcomingMoviesUseCase,
-            mapper = MovieMapperImpl(),
             scope = IOScope(),
             data = MovieViewData()
         )

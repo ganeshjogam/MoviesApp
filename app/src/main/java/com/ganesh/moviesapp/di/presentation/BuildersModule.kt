@@ -2,6 +2,7 @@ package com.ganesh.moviesapp.di.presentation
 
 import com.ganesh.moviesapp.presentation.MainActivity
 import com.ganesh.moviesapp.presentation.MainFragment
+import com.ganesh.moviesapp.presentation.popularmovies.PopularMoviesFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

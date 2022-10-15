@@ -2,8 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'kotlin-android-extensions'
-
+    //id 'kotlin-android-extensions'
 }
 
 android {
@@ -90,5 +89,9 @@ dependencies {
 
     annotationProcessor 'com.google.dagger:dagger-android-processor:2.24'
     kapt 'com.google.dagger:dagger-android-processor:2.24'
+    // for fragment injection
+    implementation 'com.google.dagger:dagger-android-support:2.24'
+
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
 
 }

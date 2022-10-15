@@ -9,4 +9,7 @@
     <string name="stay_updated">Stay updated with the latest movies</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_popular_movies">popular</string>
+    <string name="text_top_rated_movies">top rated</string>
+    <string name="text_upcoming_movies">upcoming movie</string>
 </resources>

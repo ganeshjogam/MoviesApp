@@ -5,6 +5,7 @@ import com.ganesh.moviesapp.App
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
+import dagger.android.support.AndroidSupportInjection
 import javax.inject.Singleton
 
 @Singleton

@@ -13,7 +13,7 @@ class MovieResponseMapperImpl : MovieResponseMapper {
                     title = it.title,
                     posterPath = it.posterPath,
                     overview = it.overview,
-                    backdropPath = it.backdropPath,
+                    backdropPath = it.backdropPath ?: "",
                     rating = it.rating,
                     releaseDate = it.releaseDate
                 )
