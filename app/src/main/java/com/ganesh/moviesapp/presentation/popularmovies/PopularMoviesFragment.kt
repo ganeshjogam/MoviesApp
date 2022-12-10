@@ -19,7 +19,6 @@ class PopularMoviesFragment : Fragment() {
     private lateinit var popularMovies: RecyclerView
     private lateinit var popularMoviesLayoutMgr: LinearLayoutManager
     private lateinit var popularMoviesAdapter: MoviesAdapter
-    private var popularMoviesPage = 1
 
     @Inject
     lateinit var popularMoviesViewModel: PopularMoviesViewModel
@@ -67,8 +66,7 @@ class PopularMoviesFragment : Fragment() {
 
                 if (firstVisibleItem + visibleItemCount >= totalItemCount / 2) {
                     popularMovies.removeOnScrollListener(this)
-                    popularMoviesPage++
-                    popularMoviesViewModel.getPopularMovies(popularMoviesPage)
+                    popularMoviesViewModel.getPopularMovies()
                 }
             }
         })

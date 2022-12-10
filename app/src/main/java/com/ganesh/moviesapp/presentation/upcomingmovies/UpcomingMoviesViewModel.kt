@@ -1,8 +1,9 @@
 package com.ganesh.moviesapp.presentation.upcomingmovies
 
+import com.ganesh.moviesapp.core.BaseFailure
 import com.ganesh.moviesapp.core.BaseViewModel
 import com.ganesh.moviesapp.core.Scope
-import com.ganesh.moviesapp.domain.model.MovieModel
+import com.ganesh.moviesapp.domain.model.MovieResponseModel
 import com.ganesh.moviesapp.domain.usecase.GetUpcomingMoviesUseCase
 import com.ganesh.moviesapp.domain.usecase.UpcomingMoviesRequest
 import com.ganesh.moviesapp.presentation.mapper.MovieMapper
@@ -15,26 +16,32 @@ class UpcomingMoviesViewModel(
 ) : BaseViewModel<UpcomingMovieViewData>(scope, data) {
     fun init() {
 
-        getUpcomingMovies(1)
+        getUpcomingMovies()
     }
 
-    fun getUpcomingMovies(page: Int) {
-        getUpcomingMoviesUseCase(
-            params = UpcomingMoviesRequest(
-                page = page,
-                onSuccess = ::onUpcomingMoviesFetched,
-                onError = ::onError
+    fun getUpcomingMovies() {
+        execute {
+            data.loading()
+            getUpcomingMoviesUseCase(
+                params = UpcomingMoviesRequest(
+                    page = data.currentPage.value!!
+                )
+            ).fold(
+                ::handleUpcomingMoviesError,
+                ::onUpcomingMoviesFetched
             )
-        )
+        }
     }
 
-    private fun onUpcomingMoviesFetched(movies: List<MovieModel>) {
+    private fun onUpcomingMoviesFetched(movies: MovieResponseModel) {
         val totalList = data.upcomingMovies.value?.toMutableList() ?: mutableListOf()
-        totalList.addAll(mapper.toViewData(movies))
+        totalList.addAll(mapper.toViewData(movies.movies))
         data.upcomingMovies.postValue(totalList)
+        data.currentPage.postValue(data.currentPage.value!! + 1)
+        data.totalPages.postValue(movies.totalPages)
     }
 
-    private fun onError() {
-
+    private fun handleUpcomingMoviesError(failure: BaseFailure) {
+        data.error()
     }
 }

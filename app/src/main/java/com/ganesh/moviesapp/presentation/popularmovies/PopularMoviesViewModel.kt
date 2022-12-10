@@ -3,7 +3,7 @@ package com.ganesh.moviesapp.presentation.popularmovies
 import com.ganesh.moviesapp.core.BaseFailure
 import com.ganesh.moviesapp.core.BaseViewModel
 import com.ganesh.moviesapp.core.Scope
-import com.ganesh.moviesapp.domain.model.MovieModel
+import com.ganesh.moviesapp.domain.model.MovieResponseModel
 import com.ganesh.moviesapp.domain.usecase.GetPopularMoviesUseCase
 import com.ganesh.moviesapp.domain.usecase.PopularMoviesRequest
 import com.ganesh.moviesapp.presentation.mapper.MovieMapper
@@ -16,15 +16,15 @@ class PopularMoviesViewModel(
 ): BaseViewModel<PopularMovieViewData>(scope, data) {
 
     fun init() {
-        getPopularMovies(1)
+        getPopularMovies()
     }
 
-    fun getPopularMovies(page: Int) {
+    fun getPopularMovies() {
         execute {
             data.loading()
             getPopularMoviesUseCase(
                 params = PopularMoviesRequest(
-                    page = page
+                    page = data.currentPage.value!!
                 )
             ).fold(
                 ::handlePopularMovieError,
@@ -33,10 +33,12 @@ class PopularMoviesViewModel(
         }
     }
 
-    private fun onPopularMoviesFetched(movies: List<MovieModel>) {
+    private fun onPopularMoviesFetched(movies: MovieResponseModel) {
         val totalList = data.popularMovies.value?.toMutableList() ?: mutableListOf()
-        totalList.addAll(mapper.toViewData(movies))
+        totalList.addAll(mapper.toViewData(movies.movies))
         data.popularMovies.postValue(totalList)
+        data.currentPage.postValue(data.currentPage.value!! + 1)
+        data.totalPages.postValue(movies.totalPages)
     }
 
     private fun handlePopularMovieError(failure: BaseFailure) {

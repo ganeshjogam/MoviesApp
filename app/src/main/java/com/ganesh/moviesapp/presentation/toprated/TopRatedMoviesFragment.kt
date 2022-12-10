@@ -18,7 +18,6 @@ class TopRatedMoviesFragment : Fragment() {
     private lateinit var topRatedMovies: RecyclerView
     private lateinit var topRatedMoviesAdapter: MoviesAdapter
     private lateinit var topRatedMoviesLayoutMgr: LinearLayoutManager
-    private var topRatedMoviesPage = 1
 
     @Inject
     lateinit var topRatedMoviesViewModel: TopRatedMoviesViewModel
@@ -68,8 +67,7 @@ class TopRatedMoviesFragment : Fragment() {
 
                 if (firstVisibleItem + visibleItemCount >= totalItemCount / 2) {
                     topRatedMovies.removeOnScrollListener(this)
-                    topRatedMoviesPage++
-                    topRatedMoviesViewModel.getTopRatedMovies(topRatedMoviesPage)
+                    topRatedMoviesViewModel.getTopRatedMovies()
                 }
             }
         })

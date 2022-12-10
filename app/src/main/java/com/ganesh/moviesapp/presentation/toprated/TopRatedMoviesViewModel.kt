@@ -1,8 +1,9 @@
 package com.ganesh.moviesapp.presentation.toprated
 
+import com.ganesh.moviesapp.core.BaseFailure
 import com.ganesh.moviesapp.core.BaseViewModel
 import com.ganesh.moviesapp.core.Scope
-import com.ganesh.moviesapp.domain.model.MovieModel
+import com.ganesh.moviesapp.domain.model.MovieResponseModel
 import com.ganesh.moviesapp.domain.usecase.GetTopRatedMoviesUseCase
 import com.ganesh.moviesapp.domain.usecase.TopRatedMoviesRequest
 import com.ganesh.moviesapp.presentation.mapper.MovieMapper
@@ -14,26 +15,32 @@ class TopRatedMoviesViewModel(
     private val mapper: MovieMapper
 ): BaseViewModel<TopRatedMovieViewData>(scope, data) {
     fun init() {
-        getTopRatedMovies(1)
+        getTopRatedMovies()
     }
 
-    fun getTopRatedMovies(page: Int) {
-        getTopRatedMoviesUseCase(
-            params = TopRatedMoviesRequest(
-                page = page,
-                onSuccess = ::onTopRatedMoviesFetched,
-                onError = ::onError
+    fun getTopRatedMovies() {
+        execute {
+            data.loading()
+            getTopRatedMoviesUseCase(
+                params = TopRatedMoviesRequest(
+                    page = data.currentPage.value!!
+                )
+            ).fold(
+                ::handleTopRatedMoviesError,
+                ::onTopRatedMoviesFetched
             )
-        )
+        }
     }
 
-    private fun onTopRatedMoviesFetched(movies: List<MovieModel>) {
+    private fun onTopRatedMoviesFetched(movies: MovieResponseModel) {
         val totalList = data.topRatedMovies.value?.toMutableList() ?: mutableListOf()
-        totalList.addAll(mapper.toViewData(movies))
+        totalList.addAll(mapper.toViewData(movies.movies))
         data.topRatedMovies.postValue(totalList)
+        data.currentPage.postValue(data.currentPage.value!! + 1)
+        data.totalPages.postValue(movies.totalPages)
     }
 
-    private fun onError() {
-
+    private fun handleTopRatedMoviesError(failure: BaseFailure) {
+        data.error()
     }
 }

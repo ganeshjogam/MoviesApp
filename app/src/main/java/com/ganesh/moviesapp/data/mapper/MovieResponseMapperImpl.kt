@@ -2,9 +2,10 @@ package com.ganesh.moviesapp.data.mapper
 
 import com.ganesh.moviesapp.data.entity.MoviesResponseEntity
 import com.ganesh.moviesapp.domain.model.MovieModel
+import com.ganesh.moviesapp.domain.model.MovieResponseModel
 
 class MovieResponseMapperImpl : MovieResponseMapper {
-    override fun toMovieListModel(moviesResponseEntity: MoviesResponseEntity): List<MovieModel> {
+    override fun toMovieListModel(moviesResponseEntity: MoviesResponseEntity): MovieResponseModel {
         val movieList = mutableListOf<MovieModel>()
         moviesResponseEntity.movies.forEach {
             movieList.add(
@@ -19,6 +20,6 @@ class MovieResponseMapperImpl : MovieResponseMapper {
                 )
             )
         }
-        return movieList
+        return MovieResponseModel(movieList, moviesResponseEntity.totalPages)
     }
 }

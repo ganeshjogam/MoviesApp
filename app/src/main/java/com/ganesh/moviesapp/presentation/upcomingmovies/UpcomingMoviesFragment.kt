@@ -3,14 +3,13 @@ package com.ganesh.moviesapp.presentation.upcomingmovies
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ganesh.moviesapp.*
-import com.ganesh.moviesapp.presentation.MainViewModel
 import com.ganesh.moviesapp.presentation.MovieItemViewData
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -19,7 +18,6 @@ class UpcomingMoviesFragment : Fragment() {
     private lateinit var upcomingMovies: RecyclerView
     private lateinit var upcomingMoviesAdapter: MoviesAdapter
     private lateinit var upcomingMoviesLayoutMgr: LinearLayoutManager
-    private var upcomingMoviesPage = 1
 
     @Inject
     lateinit var upcomingMoviesViewModel: UpcomingMoviesViewModel
@@ -70,8 +68,7 @@ class UpcomingMoviesFragment : Fragment() {
 
                 if (firstVisibleItem + visibleItemCount >= totalItemCount / 2) {
                     upcomingMovies.removeOnScrollListener(this)
-                    upcomingMoviesPage++
-                    upcomingMoviesViewModel.getUpcomingMovies(upcomingMoviesPage)
+                    upcomingMoviesViewModel.getUpcomingMovies()
                 }
             }
         })

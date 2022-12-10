@@ -1,13 +1,16 @@
 package com.ganesh.moviesapp.domain.usecase
 
+import com.ganesh.moviesapp.core.BaseFailure
+import com.ganesh.moviesapp.core.BaseResult
+import com.ganesh.moviesapp.domain.model.MovieResponseModel
 import com.ganesh.moviesapp.domain.repository.MovieRepository
+import kotlin.coroutines.CoroutineContext
 
 class GetUpcomingMoviesUseCaseImpl(val repository: MovieRepository):GetUpcomingMoviesUseCase {
-    override fun invoke(params: UpcomingMoviesRequest) {
-        repository.getUpcomingMovies(
-            page = params.page,
-            onSuccess = params.onSuccess,
-            onError = params.onError
-        )
+    override suspend fun invoke(
+        params: UpcomingMoviesRequest,
+        context: CoroutineContext
+    ): BaseResult<BaseFailure, MovieResponseModel> {
+        return repository.getUpcomingMovies(page = params.page)
     }
 }

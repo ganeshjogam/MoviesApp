@@ -1,12 +1,10 @@
 package com.ganesh.moviesapp.domain.usecase
 
-import com.ganesh.moviesapp.core.BaseUseCaseWithCallback
-import com.ganesh.moviesapp.domain.model.MovieModel
+import com.ganesh.moviesapp.core.BaseUseCase
+import com.ganesh.moviesapp.domain.model.MovieResponseModel
 
-interface GetTopRatedMoviesUseCase: BaseUseCaseWithCallback<TopRatedMoviesRequest>
+interface GetTopRatedMoviesUseCase: BaseUseCase<TopRatedMoviesRequest, MovieResponseModel>
 
 data class TopRatedMoviesRequest(
-    val page: Int,
-    val onSuccess: (movies: List<MovieModel>) -> Unit,
-    val onError: () -> Unit
+    val page: Int
 )
