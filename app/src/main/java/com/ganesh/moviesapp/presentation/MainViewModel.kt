@@ -1,7 +1,7 @@
 package com.ganesh.moviesapp.presentation
 
-import com.ganesh.moviesapp.core.BaseViewModel
-import com.ganesh.moviesapp.core.Scope
+import com.ganesh.core.BaseViewModel
+import com.ganesh.core.Scope
 
 class MainViewModel constructor(
     scope: Scope,

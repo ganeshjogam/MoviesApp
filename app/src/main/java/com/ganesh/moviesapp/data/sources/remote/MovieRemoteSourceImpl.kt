@@ -1,8 +1,8 @@
 package com.ganesh.moviesapp.data.sources.remote
 
-import com.ganesh.moviesapp.core.BaseFailure
-import com.ganesh.moviesapp.core.BaseResult
-import com.ganesh.moviesapp.core.request
+import com.ganesh.core.BaseFailure
+import com.ganesh.core.BaseResult
+import com.ganesh.core.request
 import com.ganesh.moviesapp.data.entity.MoviesResponseEntity
 import com.ganesh.moviesapp.data.sources.remote.api.Api
 

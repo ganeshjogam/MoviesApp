@@ -1,6 +1,6 @@
 package com.ganesh.moviesapp.di.presentation
 
-import com.ganesh.moviesapp.core.IOScope
+import com.ganesh.core.IOScope
 import com.ganesh.moviesapp.domain.usecase.GetTopRatedMoviesUseCase
 import com.ganesh.moviesapp.presentation.mapper.MovieMapperImpl
 import com.ganesh.moviesapp.presentation.toprated.TopRatedMovieViewData

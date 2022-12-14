@@ -1,9 +1,9 @@
-package com.ganesh.moviesapp.core
+package com.ganesh.core
 
 suspend fun <E, M> request(
     call: suspend () -> E,
     handleSuccess: (E, Int) -> M,
-    handleError: (Int) -> BaseFailure = { _-> RemoteError()}
+    handleError: (Int) -> BaseFailure = { _-> RemoteError() }
 ): BaseResult<BaseFailure, M> =
     try {
         val response = call()

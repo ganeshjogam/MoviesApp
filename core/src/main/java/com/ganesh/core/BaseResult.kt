@@ -1,4 +1,4 @@
-package com.ganesh.moviesapp.core
+package com.ganesh.core
 
 sealed class BaseResult<out E, out S> {
     data class Success<out S>(val success: S) : BaseResult<Nothing, S>()

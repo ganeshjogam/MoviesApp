@@ -1,4 +1,4 @@
-package com.ganesh.moviesapp.core
+package com.ganesh.core
 
 import androidx.lifecycle.MutableLiveData
 

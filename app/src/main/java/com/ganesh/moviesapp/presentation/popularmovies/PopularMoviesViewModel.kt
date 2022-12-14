@@ -1,8 +1,8 @@
 package com.ganesh.moviesapp.presentation.popularmovies
 
-import com.ganesh.moviesapp.core.BaseFailure
-import com.ganesh.moviesapp.core.BaseViewModel
-import com.ganesh.moviesapp.core.Scope
+import com.ganesh.core.BaseFailure
+import com.ganesh.core.BaseViewModel
+import com.ganesh.core.Scope
 import com.ganesh.moviesapp.domain.model.MovieResponseModel
 import com.ganesh.moviesapp.domain.usecase.GetPopularMoviesUseCase
 import com.ganesh.moviesapp.domain.usecase.PopularMoviesRequest

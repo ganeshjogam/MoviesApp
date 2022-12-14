@@ -1,7 +1,7 @@
 package com.ganesh.moviesapp.data.repository
 
-import com.ganesh.moviesapp.core.BaseFailure
-import com.ganesh.moviesapp.core.BaseResult
+import com.ganesh.core.BaseFailure
+import com.ganesh.core.BaseResult
 import com.ganesh.moviesapp.data.mapper.MovieResponseMapper
 import com.ganesh.moviesapp.data.sources.local.MovieLocalSource
 import com.ganesh.moviesapp.data.sources.remote.MovieRemoteSource

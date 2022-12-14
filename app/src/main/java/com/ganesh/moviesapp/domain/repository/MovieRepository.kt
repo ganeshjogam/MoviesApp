@@ -1,7 +1,7 @@
 package com.ganesh.moviesapp.domain.repository
 
-import com.ganesh.moviesapp.core.BaseFailure
-import com.ganesh.moviesapp.core.BaseResult
+import com.ganesh.core.BaseFailure
+import com.ganesh.core.BaseResult
 import com.ganesh.moviesapp.domain.model.MovieResponseModel
 
 interface MovieRepository {
