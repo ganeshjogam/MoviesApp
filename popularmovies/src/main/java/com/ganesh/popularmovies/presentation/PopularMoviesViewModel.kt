@@ -1,18 +1,18 @@
-package com.ganesh.moviesapp.presentation.popularmovies
+package com.ganesh.popularmovies.presentation
 
 import com.ganesh.core.BaseFailure
 import com.ganesh.core.BaseViewModel
 import com.ganesh.core.Scope
-import com.ganesh.moviesapp.domain.model.MovieResponseModel
-import com.ganesh.moviesapp.domain.usecase.GetPopularMoviesUseCase
-import com.ganesh.moviesapp.domain.usecase.PopularMoviesRequest
-import com.ganesh.moviesapp.presentation.mapper.MovieMapper
+import com.ganesh.popularmovies.domain.usecase.GetPopularMoviesUseCase
+import com.ganesh.popularmovies.domain.usecase.PopularMoviesRequest
+import com.ganesh.popularmovies.domain.model.PopularMovieResponseModel
+import com.ganesh.popularmovies.mapper.PopularMovieMapper
 
 class PopularMoviesViewModel(
     scope: Scope,
     data: PopularMovieViewData,
     private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
-    private val mapper: MovieMapper
+    private val mapper: PopularMovieMapper
 ): BaseViewModel<PopularMovieViewData>(scope, data) {
 
     fun init() {
@@ -33,7 +33,7 @@ class PopularMoviesViewModel(
         }
     }
 
-    private fun onPopularMoviesFetched(movies: MovieResponseModel) {
+    private fun onPopularMoviesFetched(movies: PopularMovieResponseModel) {
         val totalList = data.popularMovies.value?.toMutableList() ?: mutableListOf()
         totalList.addAll(mapper.toViewData(movies.movies))
         data.popularMovies.postValue(totalList)

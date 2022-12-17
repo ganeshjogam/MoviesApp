@@ -1,7 +1,6 @@
-package com.ganesh.moviesapp.presentation.popularmovies
+package com.ganesh.popularmovies.presentation
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ganesh.moviesapp.*
-import com.ganesh.moviesapp.presentation.MovieItemViewData
+import com.ganesh.popularmovies.R
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -18,7 +16,7 @@ class PopularMoviesFragment : Fragment() {
 
     private lateinit var popularMovies: RecyclerView
     private lateinit var popularMoviesLayoutMgr: LinearLayoutManager
-    private lateinit var popularMoviesAdapter: MoviesAdapter
+    private lateinit var popularMoviesAdapter: PopularMoviesAdapter
 
     @Inject
     lateinit var popularMoviesViewModel: PopularMoviesViewModel
@@ -46,11 +44,13 @@ class PopularMoviesFragment : Fragment() {
             false
         )
         popularMovies.layoutManager = popularMoviesLayoutMgr
-        popularMoviesAdapter = MoviesAdapter(mutableListOf()) { movie -> showMovieDetails(movie) }
+        popularMoviesAdapter = PopularMoviesAdapter(mutableListOf()) { movie ->
+            //showMovieDetails(movie)
+        }
         popularMovies.adapter = popularMoviesAdapter
 
-        popularMoviesViewModel.data.popularMovies.observe(viewLifecycleOwner) {
-                movies -> popularMoviesAdapter.appendMovies(movies)
+        popularMoviesViewModel.data.popularMovies.observe(viewLifecycleOwner) { movies ->
+            popularMoviesAdapter.appendMovies(movies)
             attachPopularMoviesOnScrollListener()
         }
 
@@ -72,7 +72,7 @@ class PopularMoviesFragment : Fragment() {
         })
     }
 
-    private fun showMovieDetails(movieItem: MovieItemViewData) {
+    /*private fun showMovieDetails(movieItem: PopularMovieItemViewData) {
         val intent = Intent(activity, MovieDetailsActivity::class.java)
         intent.putExtra(MOVIE_BACKDROP, movieItem.backdropPath)
         intent.putExtra(MOVIE_POSTER, movieItem.posterPath)
@@ -81,7 +81,7 @@ class PopularMoviesFragment : Fragment() {
         intent.putExtra(MOVIE_RELEASE_DATE, movieItem.releaseDate)
         intent.putExtra(MOVIE_OVERVIEW, movieItem.overview)
         startActivity(intent)
-    }
+    }*/
 
     companion object {
         @JvmStatic

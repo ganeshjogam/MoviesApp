@@ -2,10 +2,10 @@ package com.ganesh.moviesapp.di
 
 import android.app.Application
 import com.ganesh.moviesapp.App
+import com.ganesh.popularmovies.di.PopularMoviesFeatureModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
-import dagger.android.support.AndroidSupportInjection
 import javax.inject.Singleton
 
 @Singleton
@@ -14,7 +14,8 @@ import javax.inject.Singleton
         AndroidInjectionModule::class,
         AppModule::class,
         AppActivityBindingModule::class,
-        NetworkModule::class
+        NetworkModule::class,
+        PopularMoviesFeatureModule::class
     ]
 )
 interface AppComponent {

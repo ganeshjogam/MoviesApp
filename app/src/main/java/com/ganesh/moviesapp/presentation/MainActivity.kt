@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ganesh.moviesapp.*
-import com.ganesh.moviesapp.presentation.popularmovies.PopularMoviesFragment
+import com.ganesh.popularmovies.presentation.PopularMoviesFragment
 import com.ganesh.moviesapp.presentation.toprated.TopRatedMoviesFragment
 import com.ganesh.moviesapp.presentation.upcomingmovies.UpcomingMoviesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView

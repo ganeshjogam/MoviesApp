@@ -38,6 +38,8 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':core')
+    implementation project(path: ':popularmovies')
 
     //implementation 'androidx.core:core-ktx:1.9.0'
     //implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -69,7 +71,6 @@ dependencies {
     // https://github.com/bumptech/glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation project(path: ':core')
     kapt 'com.github.bumptech.glide:compiler:4.10.0'
 
     testImplementation 'junit:junit:4.13.2'
@@ -77,17 +78,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 
     //dagger2
-    api 'com.google.dagger:dagger:2.35.1'
-    api 'com.google.dagger:dagger-android:2.35.1'
-    api 'com.google.dagger:dagger-android-support:2.24'
-
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.24'
+    implementation 'com.google.dagger:dagger:2.35.1'
+    implementation 'com.google.dagger:dagger-android:2.35.1'
     kapt 'com.google.dagger:dagger-compiler:2.24'
-
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.24'
     kapt 'com.google.dagger:dagger-android-processor:2.24'
     // for fragment injection
     implementation 'com.google.dagger:dagger-android-support:2.24'
+
 
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
 

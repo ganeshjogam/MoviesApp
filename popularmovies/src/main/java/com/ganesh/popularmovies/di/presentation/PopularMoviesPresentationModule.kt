@@ -1,10 +1,10 @@
-package com.ganesh.moviesapp.di.presentation
+package com.ganesh.popularmovies.di.presentation
 
 import com.ganesh.core.IOScope
-import com.ganesh.moviesapp.domain.usecase.GetPopularMoviesUseCase
-import com.ganesh.moviesapp.presentation.mapper.MovieMapperImpl
-import com.ganesh.moviesapp.presentation.popularmovies.PopularMovieViewData
-import com.ganesh.moviesapp.presentation.popularmovies.PopularMoviesViewModel
+import com.ganesh.popularmovies.domain.usecase.GetPopularMoviesUseCase
+import com.ganesh.popularmovies.mapper.PopularMovieMapperImpl
+import com.ganesh.popularmovies.presentation.PopularMovieViewData
+import com.ganesh.popularmovies.presentation.PopularMoviesViewModel
 import dagger.Module
 import dagger.Provides
 
@@ -18,7 +18,7 @@ class PopularMoviesPresentationModule {
             scope = IOScope(),
             data = PopularMovieViewData(),
             getPopularMoviesUseCase = getPopularMoviesUseCase,
-            mapper = MovieMapperImpl()
+            mapper = PopularMovieMapperImpl()
         )
     }
 }

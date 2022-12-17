@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.popularmovies.PopularMoviesFragment">
+    tools:context="com.ganesh.popularmovies.presentation.PopularMoviesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/popular_movies"
