@@ -10,3 +10,5 @@ rootProject.name = "MoviesApp"
 include ':app'
 include ':core'
 include ':popularmovies'
+include ':topratedmovies'
+include ':upcomingmovies'

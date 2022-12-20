@@ -6,7 +6,7 @@ import com.ganesh.core.Scope
 import com.ganesh.popularmovies.domain.usecase.GetPopularMoviesUseCase
 import com.ganesh.popularmovies.domain.usecase.PopularMoviesRequest
 import com.ganesh.popularmovies.domain.model.PopularMovieResponseModel
-import com.ganesh.popularmovies.mapper.PopularMovieMapper
+import com.ganesh.popularmovies.presentation.mapper.PopularMovieMapper
 
 class PopularMoviesViewModel(
     scope: Scope,

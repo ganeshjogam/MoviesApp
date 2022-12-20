@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ganesh.moviesapp.*
 import com.ganesh.popularmovies.presentation.PopularMoviesFragment
-import com.ganesh.moviesapp.presentation.toprated.TopRatedMoviesFragment
-import com.ganesh.moviesapp.presentation.upcomingmovies.UpcomingMoviesFragment
+import com.ganesh.topratedmovies.presentation.TopRatedMoviesFragment
+import com.ganesh.upcomingmovies.presentation.UpcomingMoviesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import dagger.android.AndroidInjection
@@ -22,6 +22,7 @@ HasSupportFragmentInjector. Note, if our activity did not contain any fragments 
 the fragments did not need to inject anything, the activity would not need to implement HasSupportFragmentInjector.
 
 * */
+//https://medium.com/androidxx/an-approach-to-a-multi-module-app-with-navigation-component-and-fragment-result-api-378b6716da2e
 class MainActivity : AppCompatActivity(), HasAndroidInjector {
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
@@ -43,8 +44,8 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         bottomNav.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener {
             val fragmnet = when (it.itemId) {
                 R.id.action_popular_movies -> PopularMoviesFragment.newInstance()
-                R.id.action_top_rated_movies -> TopRatedMoviesFragment.newInstance()
-                R.id.action_upcoming_movies -> UpcomingMoviesFragment.newInstance()
+                R.id.action_top_rated_movies -> com.ganesh.topratedmovies.presentation.TopRatedMoviesFragment.newInstance()
+                R.id.action_upcoming_movies -> com.ganesh.upcomingmovies.presentation.UpcomingMoviesFragment.newInstance()
                 else -> null
 
             }
