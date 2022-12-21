@@ -35,6 +35,10 @@ android {
     kapt {
         generateStubs = true
     }
+
+    lint {
+        disable "JvmStaticProvidesInObjectDetector", "FieldSiteTargetOnQualifierAnnotation", "ModuleCompanionObjects", "ModuleCompanionObjectsNotInModuleParent"
+    }
 }
 
 dependencies {

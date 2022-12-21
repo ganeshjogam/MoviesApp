@@ -18,7 +18,7 @@ class App: Application(), HasAndroidInjector {
         DaggerAppComponent
             .builder()
             .application(this)
-            .build()!!
+            .build()
             .inject(this)
     }
 
