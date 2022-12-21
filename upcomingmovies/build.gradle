@@ -39,6 +39,8 @@ dependencies {
 
     implementation project(path: ':core')
 
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
     // Retrofit
     // https://github.com/square/retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -49,6 +51,7 @@ dependencies {
 
     //recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
 
     //dagger2
     implementation 'com.google.dagger:dagger:2.35.1'
