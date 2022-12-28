@@ -1,6 +1,7 @@
 package com.ganesh.topratedmovies.presentation
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ganesh.productdetails.presentation.MOVIE_BACKDROP
+import com.ganesh.productdetails.presentation.MOVIE_OVERVIEW
+import com.ganesh.productdetails.presentation.MOVIE_POSTER
+import com.ganesh.productdetails.presentation.MOVIE_RATING
+import com.ganesh.productdetails.presentation.MOVIE_RELEASE_DATE
+import com.ganesh.productdetails.presentation.MOVIE_TITLE
+import com.ganesh.productdetails.presentation.MovieDetailsActivity
 import com.ganesh.topratedmovies.R
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -47,7 +55,7 @@ class TopRatedMoviesFragment : Fragment() {
         )
         topRatedMovies.layoutManager = topRatedMoviesLayoutMgr
         topRatedMoviesAdapter = TopRatedMoviesAdapter(mutableListOf()) { movie ->
-            //showMovieDetails(movie)
+            showMovieDetails(movie)
         }
         topRatedMovies.adapter = topRatedMoviesAdapter
 
@@ -73,7 +81,7 @@ class TopRatedMoviesFragment : Fragment() {
         })
     }
 
-    /*private fun showMovieDetails(movieItem: MovieItemViewData) {
+    private fun showMovieDetails(movieItem: TopRatedMovieItemViewData) {
         val intent = Intent(activity, MovieDetailsActivity::class.java)
         intent.putExtra(MOVIE_BACKDROP, movieItem.backdropPath)
         intent.putExtra(MOVIE_POSTER, movieItem.posterPath)
@@ -82,7 +90,7 @@ class TopRatedMoviesFragment : Fragment() {
         intent.putExtra(MOVIE_RELEASE_DATE, movieItem.releaseDate)
         intent.putExtra(MOVIE_OVERVIEW, movieItem.overview)
         startActivity(intent)
-    }*/
+    }
 
     companion object {
         @JvmStatic

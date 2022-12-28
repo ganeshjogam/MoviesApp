@@ -1,6 +1,5 @@
 package com.ganesh.moviesapp.di
 
-import com.ganesh.moviesapp.data.sources.remote.api.Api
 import com.ganesh.moviesapp.App
 import com.ganesh.moviesapp.BuildConfig
 import com.google.gson.Gson
@@ -53,10 +52,5 @@ class NetworkModule {
     @Provides
     fun provideGson(): Gson {
         return GsonBuilder().create()
-    }
-
-    @Provides
-    fun provideRestApi(retrofit: Retrofit): Api {
-        return retrofit.create(Api::class.java)
     }
 }

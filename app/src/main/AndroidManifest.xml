@@ -19,9 +19,6 @@
             android:name=".presentation.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".MovieDetailsActivity"
-            android:exported="false" />
-        <activity
             android:name=".presentation.MainActivity"
             android:exported="true">
             <intent-filter>
