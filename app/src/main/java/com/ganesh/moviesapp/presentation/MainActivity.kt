@@ -24,6 +24,7 @@ the fragments did not need to inject anything, the activity would not need to im
 * */
 //https://medium.com/androidxx/an-approach-to-a-multi-module-app-with-navigation-component-and-fragment-result-api-378b6716da2e
 //https://medium.com/simform-engineering/getting-started-with-jenkins-android-1138ee3d1e99
+//https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Jenkins-GitHub-Webhook-example-no-403-crumb-error
 class MainActivity : AppCompatActivity(), HasAndroidInjector {
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
