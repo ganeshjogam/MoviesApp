@@ -45,8 +45,8 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         bottomNav.setOnItemSelectedListener(NavigationBarView.OnItemSelectedListener {
             val fragmnet = when (it.itemId) {
                 R.id.action_popular_movies -> PopularMoviesFragment.newInstance()
-                R.id.action_top_rated_movies -> com.ganesh.topratedmovies.presentation.TopRatedMoviesFragment.newInstance()
-                R.id.action_upcoming_movies -> com.ganesh.upcomingmovies.presentation.UpcomingMoviesFragment.newInstance()
+                R.id.action_top_rated_movies -> TopRatedMoviesFragment.newInstance()
+                R.id.action_upcoming_movies -> UpcomingMoviesFragment.newInstance()
                 else -> null
 
             }
